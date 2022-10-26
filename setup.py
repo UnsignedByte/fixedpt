@@ -9,5 +9,8 @@ setup(
 	url='https://github.com/UnsignedByte/fixedpt',
 	author='Edmund Lam',
 	
-	py_modules=['fixedpt']
+	py_modules=['fixedpt'],
+	install_requires=[
+		'numpy',
+	]
 )
