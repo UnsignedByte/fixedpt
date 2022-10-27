@@ -1,16 +1,12 @@
-from setuptools import setup
-
-from fixedpt import __version__
+from setuptools import setup, find_packages
 
 setup(
 	name='fixedpt',
-	version=__version__,
+	version='0.1.0',
 
 	url='https://github.com/UnsignedByte/fixedpt',
 	author='Edmund Lam',
 	
 	py_modules=['fixedpt'],
-	install_requires=[
-		'numpy',
-	]
+	# packages=find_packages(where='fixedpt'),
 )
