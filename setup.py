@@ -2,7 +2,7 @@ from setuptools import setup, find_packages
 
 setup(
 	name='fixedpt',
-	version='0.1.5',
+	version='0.2.1',
 
 	url='https://github.com/UnsignedByte/fixedpt',
 	author='Edmund Lam',

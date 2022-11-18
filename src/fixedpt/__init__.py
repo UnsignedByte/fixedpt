@@ -1,1 +1,2 @@
-from .fixedpt import Fixed
+from .fixed import Fixed
+from .cfixed import CFixed

@@ -2,7 +2,7 @@
 # @Author: UnsignedByte
 # @Date:   2022-10-29 17:59:31
 # @Last Modified by:   UnsignedByte
-# @Last Modified time: 2022-10-29 20:33:18
+# @Last Modified time: 2022-11-18 14:45:22
 
 import sys
 sys.path.insert(0, '../')
@@ -24,7 +24,7 @@ TEST_DISTRIBUTIONS = [(distr(s, n, d), c) for (s, n, d, c) in [ # Distribution o
 	((0, 1), (1, 8), (0, 8), 100), # small numbers
 	((0, 1), (32, 32), (0, 32), 500), # signed and unsigned 32 bit floats 
 	((0, 1), (1, 64), (0, 64), 500), # signed and unsigned 64 bit floats 
-	((0, 1), (128, 1024), (0, 1024), 100) # large bit width numbers
+	((0, 1), (128, 1024), (0, 1024), 1000) # large bit width numbers
 ]]
 
 def rand_fixed(s, n, d):
@@ -56,6 +56,16 @@ def test_sub_identity():
 		assert abs(f - f) <= EPSILON
 	eval_distrs(t)
 
+# Check that resizing preserves equality when the number of bits increases
+def test_resize():
+	def t(d):
+		(s, n, d) = d()
+		(_, nn, dd) = d()
+		f = rand_fixed(s, n, d)
+
+		fc = f.clone().resize(None, max(n, nn), max(d, dd))
+
+		assert fc == f
 
 # check that +, -, * are approximately equal to their float counterparts
 def test_ops():

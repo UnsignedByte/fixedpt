@@ -1,5 +1,6 @@
 from decimal import Decimal
 
+# Fixed point number
 class Fixed():
 	# INVARIANT:
 	# n >= d
@@ -20,15 +21,18 @@ class Fixed():
 		if (isinstance(o, Fixed)):
 			return o.clone()
 		
-		if (isinstance(o, int)):
+		elif (isinstance(o, int)):
 			return Fixed(o, 1, max(1, o.bit_length()) + 1, 0)
 
-		if (isinstance(o, float)):
+		elif (isinstance(o, float)):
 			return Fixed(o, 1, max(1, int(o).bit_length()) + d + 1, d)
 
-		if (isinstance(o, Decimal)):
+		elif (isinstance(o, Decimal)):
 			i = int(o * (1 << d))
 			return Fixed(i, 1, max(1, int(i).bit_length()) + 1, d, raw=True)
+
+		else:
+			raise ValueError(f"Casting from invalid type {type(o)}")
 
 
 	def clone(self): # clone a Fixed
@@ -37,6 +41,8 @@ class Fixed():
 	def set(self, k, raw=False):
 		if not raw:
 			k = int(k * (1 << self._d))
+		else:
+			k = int(k)
 		self._data = k % (1 << len(self))
 
 	def get(self, raw=True): # get raw value
@@ -257,7 +263,6 @@ class Fixed():
 		return not (self == o)
 
 	def __le__(self, o):
-		print(self, o)
 		return o >= self
 
 	def __gt__(self, o):
